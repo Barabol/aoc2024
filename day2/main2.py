@@ -22,13 +22,24 @@ def isGut(numz,op):
             return 0
     #print(" ")
     return 0
-nums = []
+def ez(numz):
+    op = getOp(numz,0,1)
+    if(isGut(numz,op)):
+       return 1
+    for x in range(len(numz)):
+        cp = numz.copy()
+        cp.pop(x)
+        op = getOp(cp,0,1)
+        if(isGut(cp,op)):
+           return 1
+    return 0
 
+nums = []
 for line in file:
     nums.append(line.split(" "))
-    #print(nums[len(nums)-1])
+
 sum =0
-for x in nums:
-    op = getOp(x,0,1)
-    sum+=isGut(x,op)
+for x in nums:    
+
+    sum+=ez(x)
 print("Wynik: ",sum)

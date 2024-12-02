@@ -30,6 +30,5 @@ else:
     sum=0
     for x in range(nums3.__len__()):
         sum+= x*nums3[x]*nums4[x]
-        print(x,nums3[x],nums4[x],x*nums3[x]*nums4[x])
     print("Wynik: ",sum)
 

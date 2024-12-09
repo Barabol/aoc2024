@@ -1,3 +1,4 @@
+import time
 tabela =[]
 def parse():
     global tabela
@@ -53,5 +54,8 @@ def getVal():
         sum+=tab[x]*x
     return sum
 parse()
+a = time.time()
 format_()
-print(getVal())
+b = time.time()
+print("Czas(s): ",b-a)
+print("wynik: ",getVal())

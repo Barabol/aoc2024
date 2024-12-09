@@ -45,10 +45,9 @@ def getVal():
     sum = 0
     for x in range(len(tabela)):
         if tabela[x] == -1:
-            return sum
+            continue
         sum+=tabela[x]*x
+    return sum
 parse()
-print(tabela)
 format_()
-print(tabela)
 print(getVal())

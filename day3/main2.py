@@ -12,7 +12,7 @@ for x in input2:
     for y in range(len(z)):
         if y!= 0:
             used+=z[y]
-ret = re.findall("mul\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\)",used)
+ret = re.findall(r"mul\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\)",used)
 val =0
 for x in ret:
     gg1 = re.findall("[0-9][0-9]?[0-9]?,",x)

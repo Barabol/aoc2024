@@ -55,7 +55,7 @@ def isGut(a):
     return kek
 def format_(lista):
     print()
-file = open("input1.txt","r")
+file = open("input.txt","r")
 red()
 gut = []
 kek = False

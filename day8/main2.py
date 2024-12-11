@@ -22,9 +22,9 @@ def addAntena(x,y,char):
     for z in antenas:
         if x == z[0] and y == z[1]:
             return
-    if getVal(x,y) == char:
-       return
-    #replace(x,y,"#")
+    #if getVal(x,y) == char:
+    #   return
+    replace(x,y,"#")
     antenas.append([x,y])
 
 def getValues(char):
@@ -64,6 +64,17 @@ def parse():
             if file[y][x] != '.':
                 add(x,y,file[y][x])
                 addChar(file[y][x])
+def tryComb(x,char,xOff,yOff,gg):
+    if (gg == 0 or gg == 1) and not ((x[0]-xOff)<0  or (x[1]-yOff)<0 or (x[0]-xOff)>=mapSize[0] or (x[1]-yOff)>=mapSize[1]):
+        #print(char,"a[",x[0]-xHolder,x[1]-yHolder,"]")
+        addAntena(x[0]-xOff,x[1]-yOff,char)
+        tryComb([x[0]-xOff,x[1]-yOff],char,xOff,yOff,1)
+
+    if (gg == 0 or gg == 2) and not((xOff+x[0])>=mapSize[0] or (yOff+x[1])>=mapSize[1] or (x[0]+xOff)<0  or (x[1]+yOff)<0):
+        #print(char,"b[",x[0]+xHolder,x[1]+yHolder,"]",xHolder,yHolder)
+        addAntena(x[0]+xOff,x[1]+yOff,char)
+        tryComb([x[0]+xOff,x[1]+yOff],char,xOff,yOff,2)
+    return 
 
 def form(char):
     global locs
@@ -78,14 +89,8 @@ def form(char):
 
             xHolder = x[0]-y[0]
             yHolder = x[1]-y[1]
+            tryComb(x,char,xHolder,yHolder,0)
 
-            if not ((x[0]-xHolder)<0  or (x[1]-yHolder)<0 or (x[0]-xHolder)>=mapSize[0] or (x[1]-yHolder)>=mapSize[1]) :
-                #print(char,"a[",x[0]-xHolder,x[1]-yHolder,"]")
-                addAntena(x[0]-xHolder,x[1]-yHolder,char)
-
-            if not((xHolder+x[0])>=mapSize[0] or (yHolder+x[1])>=mapSize[1] or (x[0]+xHolder)<0  or (x[1]+yHolder)<0):
-                #print(char,"b[",x[0]+xHolder,x[1]+yHolder,"]",xHolder,yHolder)
-                addAntena(x[0]+xHolder,x[1]+yHolder,char)
 
 parse()
 print(locs)
@@ -93,4 +98,6 @@ print(uniqueChars)
 for x in uniqueChars:
     #print(x)
     form(x)
-print("Score: ",len(antenas))
+print(len(antenas)," powinno być 34")
+for x in file:
+    print(x)

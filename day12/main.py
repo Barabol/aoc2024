@@ -1,3 +1,4 @@
+import time
 map = []
 binaryMap = [[]]
 binaryMapCpy = [[]]
@@ -82,10 +83,10 @@ def scan(x,y):# zrobić to rekurencją
     used = 0
     #printBm(holder)
     return [scanEx(x,y,char,holder),used,char,x,y]
-
+gg = time.time()
 parse()
-for x in map:
-    print(x)
+#for x in map:
+    #print(x)
 #for x in binaryMap:
 #    print(x)
 tab = []
@@ -97,7 +98,8 @@ for y in range(mapSize[1]):
 
 score = 0
 for x in tab:
-    print(x)
+    #print(x)
     score+= x[0]*x[1]
-
+print(time.time()-gg)
 print(score)
+

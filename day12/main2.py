@@ -11,7 +11,7 @@ def parse():
     global binaryMap
     global binaryMapCpy
 
-    map = open("input3.txt","r").read().split("\n")
+    map = open("input.txt","r").read().split("\n")
     map.pop()
     
     mapSize[0] = len(map[0])
@@ -47,7 +47,7 @@ def scan(x,y):# zrobić to rekurencją
             uniques = []
             pointer = [len(hold[0])-1,len(hold[1])-1]
             if pointer[0] == -1 and pointer[1] == -1:
-                return 1
+                return 0
             uqe = True
             #print("++Unique",index)
             #print(hold)
@@ -71,7 +71,7 @@ def scan(x,y):# zrobić to rekurencją
             return len(uniques)
 
             
-        printBm(bMap)
+        #printBm(bMap)
 
         sides = 0
 
@@ -82,9 +82,9 @@ def scan(x,y):# zrobić to rekurencją
             for y in range(mapSize[1]):
                 if bMap[y][x]:
                     if y+1 >= mapSize[1] or holder[y+1][x] == False:
-                        holding[x&1].append(y+1)
+                        holding[x&1].append(str(y)+str(y+1))
                     if y-1 < 0 or holder[y-1][x] == False:
-                        holding[x&1].append(y-1)
+                        holding[x&1].append(str(y)+str(y-1))
 
             #print(holding,len(holding[x&1]))
             sides+= getUniquesAmm(holding,x&1)
@@ -99,15 +99,18 @@ def scan(x,y):# zrobić to rekurencją
             for x in range(mapSize[0]):
                 if bMap[y][x]:
                     if x+1 >= mapSize[0] or holder[y][x+1] == False:
-                        holding[y&1].append(x+1)
+                        holding[y&1].append(str(x)+str(x+1))
                     if x-1 < 0 or holder[y][x-1] == False:
-                        holding[y&1].append(x-1)
+                        holding[y&1].append(str(x)+str(x-1))
 
             #print(holding,len(holding[x&1]))
             sides+= getUniquesAmm(holding,y&1)
             
         holding = [[],[]]
-        print(sides)
+        if sides&1:
+            print(sides)
+            printBm(holder)
+            sides+=1
 
         return sides
     def getBinary(bMap):

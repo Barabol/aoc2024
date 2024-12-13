@@ -45,10 +45,10 @@ def getValuez(tab):
 
     xHolder = (needed[0]-(needed[1]//buttonB[1])*buttonB[0])//buttonA[0]
 
-    print(tab[0][0],"x+",tab[1][0],"y =",tab[2][0],";",tab[0][1],"x+",tab[1][1],"y =",tab[2][1])
-    print("x = ",xHolder,"\ny = ",yHolder)
+    #print(tab[0][0],"x+",tab[1][0],"y =",tab[2][0],";",tab[0][1],"x+",tab[1][1],"y =",tab[2][1])
+    #print("x = ",xHolder,"\ny = ",yHolder)
     if xHolder*tab[0][0]+yHolder*tab[1][0] != tab[2][0] or xHolder*tab[0][1]+yHolder*tab[1][1] != tab[2][1]:
-        print("F")
+        #print("F")
         return []
     return [[xHolder,yHolder]]
 
@@ -61,7 +61,7 @@ def run():
         if(len(hold)>1):
             print(hold)
         if(len(hold) == 1):
-            print("A")
+            #print("A")
             score+=(hold[0][0]*3)+hold[0][1]
     print(score)
 

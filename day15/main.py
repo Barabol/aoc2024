@@ -1,11 +1,13 @@
 from os import times_result
 from PIL import Image
+from numpy import true_divide
 
 map = []
 mapSize = [0,0]
 moveList = []
 gamer = [-1,-1]
 lookUp = [">","<","v","^"]
+changed = True
 
 def genMap(show = False,save=False,fileName="./img.bmp"):
     global map
@@ -38,6 +40,7 @@ def parse(fileName):
     global map
     global moveList
     global gamer
+    global changed
 
     file = open(fileName,"r").read().split("\n")
     state = 0
@@ -71,7 +74,9 @@ def move():
     global gamer
     global lookUp
     def tryBlockMove(x,y,command):
+        global changed
         if map[y][x] == ".":
+            changed = True
             return True
         if map[y][x] == "#":
             return False
@@ -86,12 +91,14 @@ def move():
             #def replace(x,y,sym="x",toReplace="."):
             (replace(x,y,".","O"))
             (replace(usedMove[0],usedMove[1],"O","."))
+            changed = True
             return True 
 
         if map[usedMove[1]][usedMove[0]] == "O":
             if tryBlockMove(usedMove[0],usedMove[1],command):
                 replace(x,y,".","O")
                 replace(usedMove[0],usedMove[1],"O",".")
+                changed = True
                 return True 
 
         return False
@@ -102,6 +109,7 @@ def move():
     next = [gamer[0]+moveTable[usedMove][0],gamer[1]+moveTable[usedMove][1]]
 
     if tryBlockMove(next[0],next[1],usedMove):
+        changed = True
         gamer = next
 
     #print(next)
@@ -119,8 +127,9 @@ parse("input.txt")
 
 for x in range(len(moveList)):
     move()
-
-genMap(save=True,fileName="./img/"+str(1)+".bmp")
+    if changed == True:
+        genMap(save=True,fileName="./img/"+str(x)+".bmp")
+    changed = False 
 score =0
 for x in getBoxes():
     score+=(x[1]*100+x[0])

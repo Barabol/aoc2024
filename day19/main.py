@@ -13,8 +13,11 @@ def parse(fileName):
     #patterns.sort(key=len,reverse=True)
 def check(index):
 
-    def isGut(gut,val,index):
+    def isGut(gut,val,index,indexD):
         usedLen = len(patterns[val])
+        if gut[index][indexD] == -1:
+            return False
+        gut[index][indexD] = -1
         if usedLen == 0:
             return False
         index += usedLen
@@ -26,8 +29,8 @@ def check(index):
 
         holder = 0
         print(index,gut[index])
-        for x in gut[index]:
-            if index == 0 and isGut(gut,x,index):
+        for x in range(len(gut[index])):
+            if isGut(gut,gut[index][x],index,x):
                 holder+=1
 
         if holder > 0:
@@ -50,8 +53,8 @@ def check(index):
                     gut[x].append(y)
                 
     print(gut)
-    for x in gut[0]:
-        if isGut(gut,x,0):
+    for x in range(len(gut[0])):
+        if isGut(gut,gut[0][x],0,x):
             return True
     return False
 parse("input.txt")

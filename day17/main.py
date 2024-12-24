@@ -128,7 +128,7 @@ opDict={
     7:"cdv()"
 }
 
-parse("input.txt")
+parse("input1.txt")
 print("RegA: ",regA,"\nRegB: ",regB,"\nRegC: ",regC,"\ninstruction codes: ",instructions)
 while(instPointer < len(instructions)):
     eval(opDict[instructions[instPointer]])

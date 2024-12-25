@@ -11,10 +11,10 @@ def parse(fileName):
         if file[x] == "" or x == 0:
             continue
         designs.append(file[x])
-    #patterns.sort(key=len,reverse=True)
+    patterns.sort(key=len,reverse=True)
 def check(index):
 
-    def isGut(gut,index,iter):
+    def isGut(gut,index,iter,strHolder,strWorked,strIters,before = ""):
         
         used = gut[index][iter]
         usedLen = len(patterns[used])
@@ -22,23 +22,26 @@ def check(index):
             return False
 
         index += usedLen
-        print(index,iter)
-
-
+        uStr = before+patterns[used]
+        #print(uStr)
+        if uStr in strHolder:
+            strIters[strHolder.index(uStr)]+=1
+            return False
+        strHolder.append(uStr)
+        strIters.append(0)
         if index == len(gut):
+            strWorked.append(1)
             return True
 
         if index > len(gut):
+            strWorked.append(0)
             return False
 
         holder = 0
         for x in range(len(gut[index])):
-            holder += isGut(gut,index,x)
-        #print(index,gut[index])
+            holder += isGut(gut,index,x,strHolder,strWorked,strIters,uStr)
 
-        #for x in range(len(gut[index])):
-        #    print(x,indexD)
-        #    holder+=isGut(gut,gut[index][x],index,x)
+        strWorked.append(holder)
         return holder
 
     used = designs[index]
@@ -61,13 +64,24 @@ def check(index):
             print(patterns[y],end=",")
         print("|",end="")
     print("")
-    print(gut)
+    print("gut = ",gut)
+    print("patterns = ",patterns)
+    for x in patterns:
+        if len(x) <= 0:
+            return False
+    a = []
+    b = []
+    c = []
     for x in range(len(gut[0])):
         print("DD")
-        hold = isGut(gut,0,x)
+        hold = isGut(gut,0,x,a,b,c)
         if hold > 0:
             usable.append(gut)
             print("hold: ",hold)
+            print("strs:",a,"\nWorked: ",b,"\nIters: ",c)
+            for z in range(len(b)):
+                if c[z] > 0:
+                    hold+=c[z]*b[z]
             return hold
     return False
 
